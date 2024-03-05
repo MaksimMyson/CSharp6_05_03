@@ -1,31 +1,56 @@
 ﻿namespace CSharp6_05_03
 {
-    internal class Program
+    public interface IOutput
+    {
+        void Show();
+        void Show(string info);
+    }
+
+    public class Array : IOutput
+    {
+        private int[] elements;
+
+        public Array(int[] elements)
+        {
+            this.elements = elements;
+        }
+
+        public void Show()
+        {
+            Console.WriteLine("Elements of the array:");
+            foreach (var element in elements)
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
+        }
+
+        public void Show(string info)
+        {
+            Console.WriteLine($"Elements of the array: {info}");
+            foreach (var element in elements)
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+
+    public class Program
     {
         static void Main(string[] args)
         {
-            IOutput output = new ConsoleOutput();
+            int[] arrayElements = { 1, 2, 3, 4, 5 };
 
-            output.Show(); 
-            output.Show("Custom message"); 
+            Array array = new Array(arrayElements);
+
+            
+            array.Show();
+
+          
+            array.Show("Array elements");
+
+            Console.ReadLine(); 
         }
-    }
-}
-public interface IOutput
-{
-    void Show();
-    void Show(string info);
-}
-
-public class ConsoleOutput : IOutput
-{
-    public void Show()
-    {
-        Console.WriteLine("Default information");
-    }
-
-    public void Show(string info)
-    {
-        Console.WriteLine($"Information: {info}");
     }
 }
